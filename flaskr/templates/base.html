@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}" />
+
+    <title>Cilantro</title>
+</head>
+
+<body>
+    <div class="container-fluid d-flex flex-column min-vh-100">
+        <div class="row flex-grow-1">
+            <div class="col-sm-3">              
+                List
+            </div>
+            <div class="col-sm-9">
+                Content
+            </div>
+        </div>
+        <div class="row mt-auto">
+            <div class="col">
+                <form class="row g-3">
+                    <div class="col-auto">
+                      <input type="text" readonly class="form-control-plaintext" value="Add RSS source URL:">
+                    </div>
+                    <div class="col-auto">
+                      <label for="inputRSS" class="visually-hidden">RSS Source</label>
+                      <input type="text" name="rss_source" class="form-control" id="inputRSS" placeholder="https://example.com/rss">
+                    </div>
+                    <div class="col-auto">
+                      <button type="submit" hx-post="/records" class="btn btn-primary mb-3">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='htmx.min.js') }}"></script>
+</body>
+
+</html>
