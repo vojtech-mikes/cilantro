@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}" />
 
     <title>Cilantro</title>
@@ -12,15 +11,17 @@
 
 <body>
     <div class="container-fluid d-flex flex-column min-vh-100">
-        <div class="row flex-grow-1">
-            <div class="col-sm-3">              
-                List
+        <div class="row flex-grow-1 border-bottom border-black">
+            <div class="col-sm-3 border-end border-black">              
+                <h4>RSS Sources</h4>
+                <div hx-target="this" hx-trigger="load" hx-get="/records" id="sources"></div>
             </div>
             <div class="col-sm-9">
-                Content
+                <h4>Content</h4>
+                <div id="rss_content"></div>
             </div>
         </div>
-        <div class="row mt-auto">
+        <div class="row mt-4">
             <div class="col">
                 <form class="row g-3">
                     <div class="col-auto">
@@ -31,7 +32,7 @@
                       <input type="text" name="rss_source" class="form-control" id="inputRSS" placeholder="https://example.com/rss">
                     </div>
                     <div class="col-auto">
-                      <button type="submit" hx-post="/records" class="btn btn-primary mb-3">Add</button>
+                      <button type="submit" hx-post="/records" hx-target="#sources" hx-swap="innerHTML" class="btn btn-primary mb-3">Add</button>
                     </div>
                 </form>
             </div>

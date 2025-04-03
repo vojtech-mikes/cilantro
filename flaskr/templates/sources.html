@@ -1,0 +1,17 @@
+<table class="table table-striped" hx-target="closest tr" hx-swap="outerHTML">
+    <tbody>
+        {% for source in sources %}
+            <tr>
+                <td><span hx-get="/contents" hx-target="#rss_content" hx-swap="innerHTML" hx-trigger="click" hx-vals='{"source": "{{source | safe}}"}' style="cursor: pointer;">{{source}}</span></td>
+                <td>
+                    <button hx-delete="/records" 
+                            hx-vals='{"source": "{{ source }}"}'
+                            type="button" 
+                            class="btn-close" 
+                            aria-label="Close">
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
