@@ -13,7 +13,7 @@ def load_rss():
     items = cast(ResultSet[Tag], data.find_all("item"))
 
     rss_items = []
-    
+
     for item in items:
         rss_item = RssItems(
             title=item.title.text if item.title else "Title Not Found",
@@ -27,7 +27,9 @@ def load_rss():
         items=rss_items if rss_items else [],
         link=data.link.text if data.link else "Link Not Found",
         title=data.title.text if data.title else "No Title Found",
-        last_build_date=data.lastBuildDate.text if data.lastBuildDate else "No Build Date Found",
+        last_build_date=(
+            data.lastBuildDate.text if data.lastBuildDate else "No Build Date Found"
+        ),
     )
 
     return rss_object

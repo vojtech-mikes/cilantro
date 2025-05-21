@@ -16,4 +16,3 @@ class RssObject:
     link: str
     last_build_date: str
     items: List[RssItems]
-
