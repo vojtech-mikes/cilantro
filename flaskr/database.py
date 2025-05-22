@@ -11,14 +11,16 @@ def _get_db_cursor() -> Tuple[sqlite3.Connection, sqlite3.Cursor]:
 
 
 def table_init_check() -> None:
-    conn, cursor = _get_db_cursor() 
+    conn, cursor = _get_db_cursor()
 
-    cursor.execute("""
+    cursor.execute(
+        """
     CREATE TABLE IF NOT EXISTS feeds (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         url TEXT UNIQUE NOT NULL
     )
-    """)
+    """
+    )
 
     conn.commit()
     cursor.close()
@@ -28,9 +30,11 @@ def table_init_check() -> None:
 def load_saved_urls() -> List[str]:
     conn, cursor = _get_db_cursor()
 
-    cursor.execute("""
+    cursor.execute(
+        """
     SELECT url FROM feeds
-    """)
+    """
+    )
 
     result = cursor.fetchall()
 
@@ -43,9 +47,12 @@ def load_saved_urls() -> List[str]:
 def create_record(url: str) -> None:
     conn, cursor = _get_db_cursor()
 
-    cursor.execute("""
+    cursor.execute(
+        """
     INSERT INTO feeds (url) VALUES (?)
-    """, (url,))
+    """,
+        (url,),
+    )
 
     conn.commit()
     cursor.close()
@@ -55,9 +62,12 @@ def create_record(url: str) -> None:
 def remove_record(url: str) -> None:
     conn, cursor = _get_db_cursor()
 
-    cursor.execute("""
+    cursor.execute(
+        """
     DELETE FROM feeds WHERE url=(?)
-    """, (url,))
+    """,
+        (url,),
+    )
 
     conn.commit()
     cursor.close()
