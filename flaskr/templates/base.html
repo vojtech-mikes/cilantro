@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cilantro RSS</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css')}}">
+    </head>
+    <body class="bg-light">
+	<div class="container my-5" style="max-width: 600px;">
+	    <h1 class="text-center mb-4">Cilantro RSS reader</h1>
+
+	    <form hx-post="/loadrss" hx-swap="none" class="mb-4">
+		<div class="card shadow-sm p-3">
+		    <h6 class="mb-3 text-primary">RSS Feed Options</h6>
+		    {% if feeds|length > 0 -%}
+		    <!-- Saved Feeds Dropdown -->
+		    <div class="mb-3">
+			<label for="savedFeeds" class="form-label">Choose a saved feed:</label>
+			<select class="form-select" id="savedFeeds" name="savedFeed">
+			    <option value="" selected>Select a feed</option>
+			    {%- for feed in feeds %}
+			    <option value="{{feed -}}">{{feed -}}</option>
+			    {% endfor %}
+			</select>
+		    </div>
+		    {% endif %}
+
+		    <!-- Or Enter Custom Feed -->
+		    <div class="mb-3">
+			<label for="customFeed" class="form-label">Enter a new RSS feed URL:</label>
+			<input type="url" class="form-control" id="customFeed" name="customFeed" placeholder="https://example.com/rss">
+		    </div>
+
+		    <!-- Submit Button -->
+		    <div class="text-end">
+			<button type="submit" class="btn btn-primary">
+			    <i class="bi bi-arrow-repeat me-1"></i>Load Feed
+			</button>
+		    </div>
+
+		    <p class="form-text text-muted mt-3" style="font-size: 0.775em;">
+		    * If both a saved feed and a new RSS feed URL are provided, the new URL will be loaded instead of the saved feed. All loaded RSS feeds are saved to the database.
+		    </p>
+		</div>
+	    </form>
+
+	    {% if feeds|length > 0 -%}
+	    <div class="card mb-4 border border-primary-subtle bg-light shadow-sm">
+		<div class="card-body">
+		    <h5 class="card-title text-primary-emphasis">
+			<i class="bi bi-graph-up-arrow me-2"></i>Global Summary
+		    </h5>
+		    <p class="card-text text-secondary">An overview of the content below. You can dynamically update this summary based on submissions.</p>
+		</div>
+	    </div>
+
+	    <!-- Optional Divider -->
+	    <h6 class="text-muted text-uppercase small mb-2">Individual Feed Summaries</h6>
+	    <hr class="mt-0 mb-3">
+
+	    <div class="vstack gap-3">
+		<div class="p-3 bg-white border rounded shadow-sm">
+		    <h5 class="mb-1">Summary Title 1</h5>
+		    <p class="mb-0 text-muted">This is a summary description. You can replace or populate this dynamically.</p>
+		</div>
+		<div class="p-3 bg-white border rounded shadow-sm">
+		    <h5 class="mb-1">Summary Title 2</h5>
+		    <p class="mb-0 text-muted">Another example summary block with separated structure.</p>
+		</div>
+	    </div>
+	    </div>
+
+
+	{% else -%}
+	<div class="card border-0 bg-light text-center text-muted">
+	    <div class="card-body">
+		<h6 class="card-title mb-2">
+		    <i class="bi bi-rss me-2"></i>No RSS content available
+		</h6>
+		<p class="card-text">Please enter a valid RSS feed URL in the form above to load content.</p>
+	    </div>
+	</div>
+
+	{% endif %}
+
+
+
+	<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='htmx.min.js') }}"></script>
+    </body>
+</html>

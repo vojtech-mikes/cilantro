@@ -1,0 +1,6 @@
+<select class="form-select" id="savedFeeds" name="savedFeed">
+    <option value="" selected>Select a feed</option>
+    {%- for feed in feeds %}
+    <option value="{{feed -}}">{{feed -}}</option>
+    {% endfor %}
+</select>
